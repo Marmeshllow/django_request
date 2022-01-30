@@ -19,49 +19,14 @@ DATA = {
 }
 
 
-def omlet(request):
+def get_recipe(request, name):
     servings = int(request.GET.get('servings', 1))
-    recipe = {
-        'яйца, шт': 2,
-        'молоко, л': 0.1,
-        'соль, ч.л.': 0.5
+    recipe = DATA.get(name)
+    context = {
+        'recipe': recipe,
+        'name': name,
     }
     for key, val in recipe.items():
         recipe[key] = val * servings
-    context = {
-        'recipe': recipe,
-        'name': 'Омлет',
-    }
     return render(request, 'calculator/index.html', context)
 
-
-def pasta(request):
-    servings = int(request.GET.get('servings', 1))
-    recipe = {
-        'макароны, г': 0.3,
-        'сыр, г': 0.05,
-    }
-    for key, val in recipe.items():
-        recipe[key] = val * servings
-    context = {
-        'recipe': recipe,
-        'name': 'Паста',
-    }
-    return render(request, 'calculator/index.html', context)
-
-
-def buter(request):
-    servings = int(request.GET.get('servings', 1))
-    recipe = {
-        'хлеб, ломтик': 1,
-        'колбаса, ломтик': 1,
-        'сыр, ломтик': 1,
-        'помидор, ломтик': 1,
-    }
-    for key, val in recipe.items():
-        recipe[key] = val * servings
-    context = {
-        'recipe': recipe,
-        'name': 'Бутербродик',
-    }
-    return render(request, 'calculator/index.html', context)
